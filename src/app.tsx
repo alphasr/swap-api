@@ -1,11 +1,16 @@
+import { ApolloProvider } from "@apollo/client";
 import React from "react";
-import ReactDom from "react-dom";
+import { client } from ".";
+import Home from "./pages/Home";
 
-const mainElement = document.createElement("div");
-document.body.appendChild(mainElement);
-
-const App = () => {
-  return <h1>Hi from a react app something crazy</h1>;
+const App: React.FC = () => {
+  return (
+    <ApolloProvider client={client}>
+      <React.Fragment>
+        <Home />
+      </React.Fragment>
+    </ApolloProvider>
+  );
 };
 
-ReactDom.render(<App />, mainElement);
+export default App;
