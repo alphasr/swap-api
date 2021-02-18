@@ -7,7 +7,6 @@ module.exports = {
     mainFields: ["main", "module", "browser"],
   },
   entry: "./src/index.tsx",
-  target: "electron-renderer",
   devtool: "source-map",
   module: {
     rules: [
@@ -17,6 +16,10 @@ module.exports = {
         use: {
           loader: "babel-loader",
         },
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
