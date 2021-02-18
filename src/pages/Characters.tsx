@@ -14,8 +14,6 @@ const Characters: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
 
-  // const { loading, error, data } = useQuery(Queries.GET_VEHICLE);
-
   const { loading, data, error, fetchMore } = useQuery(Queries.GET_PERSON, {
     variables: { after: null },
   });
