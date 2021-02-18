@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-import { client } from "..";
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 import Queries from "../Queries";
-import produce from "immer";
 import ReactPaginate from "react-paginate";
 import { Button, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -11,7 +9,7 @@ const Vehicles: React.FC = () => {
   let history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(0);
-  const { loading, data, error, fetchMore } = useQuery(Queries.GET_VEHICLE, {
+  const { loading, data, error } = useQuery(Queries.GET_VEHICLE, {
     variables: { after: null },
   });
   const [sorted, setSorted] = useState(false);
@@ -78,27 +76,6 @@ const Vehicles: React.FC = () => {
       <div className="align-right mr-3">
         <Button className="mb-3 ml-3 " onClick={sortBySpeed}>
           Sort by speed
-        </Button>
-        <Button
-          className="mb-3 ml-3 "
-          onClick={() => {
-            const { endCursor } = data.allVehicles.pageInfo;
-            fetchMore({
-              variables: { after: endCursor },
-              updateQuery: (prevResult, { fetchMoreResult }) => {
-                fetchMoreResult = produce(fetchMoreResult, (draft: unknown) => {
-                  draft.allVehicles.vehicles = [
-                    ...prevResult.allVehicles.vehicles,
-                    ...fetchMoreResult.allVehicles.vehicles,
-                  ];
-                });
-                console.log(fetchMoreResult);
-                return fetchMoreResult;
-              },
-            });
-          }}
-        >
-          Load More
         </Button>
       </div>
 
@@ -173,3 +150,26 @@ const Vehicles: React.FC = () => {
 };
 
 export default Vehicles;
+{
+  /* <Button
+  className="mb-3 ml-3 "
+  onClick={() => {
+    const { endCursor } = data.allVehicles.pageInfo;
+    fetchMore({
+      variables: { after: endCursor },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        fetchMoreResult = produce(fetchMoreResult, (draft: unknown) => {
+          draft.allVehicles.vehicles = [
+            ...prevResult.allVehicles.vehicles,
+            ...fetchMoreResult.allVehicles.vehicles,
+          ];
+        });
+        console.log(fetchMoreResult);
+        return fetchMoreResult;
+      },
+    });
+  }}
+>
+  Load More
+</Button>; */
+}

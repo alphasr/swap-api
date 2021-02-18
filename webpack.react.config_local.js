@@ -7,7 +7,6 @@ module.exports = {
     mainFields: ["main", "module", "browser"],
   },
   entry: "./src/index.tsx",
-  target: "electron-renderer",
   devtool: "source-map",
   module: {
     rules: [

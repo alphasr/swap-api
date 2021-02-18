@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-import { client } from "..";
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 import Queries from "../Queries";
-import produce from "immer";
 import ReactPaginate from "react-paginate";
 import { Button, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-
-// const client = ...
 
 const Characters: React.FC = () => {
   let history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { loading, data, error, fetchMore } = useQuery(Queries.GET_PERSON, {
+  const { loading, data, error } = useQuery(Queries.GET_PERSON, {
     variables: { after: null },
   });
   const [sorted, setSorted] = useState(false);
@@ -57,9 +53,7 @@ const Characters: React.FC = () => {
   };
   return (
     <React.Fragment>
-      {/* <div>{data.allVehicles.pageInfo.endCursor}</div> */}
       <div className="m-3">
-        {" "}
         <Button onClick={history.goBack}> &#8592; Go Back</Button>
       </div>
 
@@ -83,27 +77,6 @@ const Characters: React.FC = () => {
       <div className="align-right mr-3">
         <Button className="mb-3 ml-3 " onClick={sortByAge}>
           Sort by Age
-        </Button>
-        <Button
-          className="mb-3 ml-3 "
-          onClick={() => {
-            const { endCursor } = data.allPeople.pageInfo;
-            fetchMore({
-              variables: { after: endCursor },
-              updateQuery: (prevResult, { fetchMoreResult }) => {
-                fetchMoreResult = produce(fetchMoreResult, (draft: unknown) => {
-                  draft.allPeople.people = [
-                    ...prevResult.allPeople.people,
-                    ...fetchMoreResult.allPeople.people,
-                  ];
-                });
-                console.log(fetchMoreResult);
-                return fetchMoreResult;
-              },
-            });
-          }}
-        >
-          Load More
         </Button>
       </div>
 
@@ -133,8 +106,6 @@ const Characters: React.FC = () => {
                     height: number;
                     mass: number;
                   }) => (
-                    // costInCredits: number;
-                    // cargoCapacity: number;
                     <tr key={id}>
                       <td>{name}</td>
                       <td>{birthYear}</td>
@@ -157,8 +128,6 @@ const Characters: React.FC = () => {
                     height: number;
                     mass: number;
                   }) => (
-                    // costInCredits: number;
-                    // cargoCapacity: number;
                     <tr key={id}>
                       <td>{name}</td>
                       <td>{birthYear}</td>
@@ -175,3 +144,26 @@ const Characters: React.FC = () => {
 };
 
 export default Characters;
+{
+  /* <Button
+  className="mb-3 ml-3 "
+  onClick={() => {
+    const { endCursor } = data.allPeople.pageInfo;
+    fetchMore({
+      variables: { after: endCursor },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        fetchMoreResult = produce(fetchMoreResult, (draft: unknown) => {
+          draft.allPeople.people = [
+            ...prevResult.allPeople.people,
+            ...fetchMoreResult.allPeople.people,
+          ];
+        });
+        console.log(fetchMoreResult);
+        return fetchMoreResult;
+      },
+    });
+  }}
+>
+  Load More
+</Button>; */
+}
