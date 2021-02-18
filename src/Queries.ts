@@ -27,3 +27,17 @@ const GET_VEHICLE = gql`
 
 const Queries = { GET_PERSON, GET_VEHICLE };
 export default Queries;
+//  query GetVehicle {
+//     allVehicles(first: 2, after: "YXJyYXljb25uZWN0aW9u0jI=") {
+//       pageInfo {
+//         hasNextPage
+//       }
+//       edges {
+//         cursor
+//         node {
+//           id
+//           name
+//         }
+//       }
+//     }
+//   }
