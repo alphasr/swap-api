@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 
 const GET_PERSON = gql`
-  query GetCharacters($after: String) {
-    allPeople(first: 60, after: $after) {
+  query GetCharacters {
+    allPeople(first: 60) {
       people {
         id
         name
