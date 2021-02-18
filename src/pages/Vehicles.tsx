@@ -15,6 +15,8 @@ const GET_VEHICLE = gql`
         __typename
         id
         name
+        model
+        crew
         cargoCapacity
         maxAtmospheringSpeed
       }
@@ -117,6 +119,8 @@ const Vehicles: React.FC = () => {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Model</th>
+              <th>Minimum Crew Capactiy</th>
               <th>Cargo Capacity</th>
               <th>Max Speed</th>
             </tr>
@@ -124,19 +128,24 @@ const Vehicles: React.FC = () => {
           <tbody>
             {currentPageData.map(
               ({
-                name,
                 id,
+                name,
+                model,
+                crew,
                 cargoCapacity,
                 maxAtmospheringSpeed,
               }: {
+                id: string;
                 name: string;
                 model: string;
-                id: string;
-                cargoCapacity: number;
-                maxAtmospheringSpeed: number;
+                crew: string;
+                cargoCapacity: Float;
+                maxAtmospheringSpeed: Int;
               }) => (
                 <tr key={id}>
                   <td>{name}</td>
+                  <td>{model}</td>
+                  <td>{crew}</td>
                   <td>{cargoCapacity}</td>
                   <td>{maxAtmospheringSpeed}</td>
                 </tr>

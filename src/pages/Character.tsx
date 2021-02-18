@@ -8,17 +8,20 @@ import { Button, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 // const client = ...
-const GET_VEHICLE = gql`
-  query GetVehicle($after: String) {
-    allVehicles(first: 10, after: $after) {
-      vehicles {
-        __typename
+const GET_CHARACTER = gql`
+  query GetCharacter($after: String) {
+    allPeople(first: 60, after: $after) {
+      people {
         id
-        cargoCapacity
-        created
-        costInCredits
+        hairColor
         name
+        mass
+        height
+        homeworld {
+          name
+        }
       }
+
       pageInfo {
         endCursor
       }
@@ -32,20 +35,20 @@ const Character: React.FC = () => {
 
   // const { loading, error, data } = useQuery(Queries.GET_VEHICLE);
 
-  const { loading, data, error, fetchMore } = useQuery(GET_VEHICLE, {
+  const { loading, data, error, fetchMore } = useQuery(GET_CHARACTER, {
     variables: { after: null },
   });
   if (error) return <div>errors ...</div>;
   if (loading || !data) return <div>loading ...</div>;
 
-  const PER_PAGE = 5;
+  const PER_PAGE = 30;
   const offset = currentPage * PER_PAGE;
-  const currentPageData = data.allVehicles.vehicles.slice(
+  const currentPageData = data.allPeople.people.slice(
     offset,
     offset + PER_PAGE
   );
 
-  const pageCount = Math.ceil(data.allVehicles.vehicles.length / PER_PAGE);
+  const pageCount = Math.ceil(data.allPeople.people.length / PER_PAGE);
   console.log("Page count", pageCount);
 
   function handlePageClick({ selected: selectedPage }: { selected: any }) {
@@ -93,14 +96,14 @@ const Character: React.FC = () => {
         <Button
           className="mb-3 ml-3 "
           onClick={() => {
-            const { endCursor } = data.allVehicles.pageInfo;
+            const { endCursor } = data.allPeople.pageInfo;
             fetchMore({
               variables: { after: endCursor },
               updateQuery: (prevResult, { fetchMoreResult }) => {
                 fetchMoreResult = produce(fetchMoreResult, (draft: unknown) => {
-                  draft.allVehicles.vehicles = [
-                    ...prevResult.allVehicles.vehicles,
-                    ...fetchMoreResult.allVehicles.vehicles,
+                  draft.allPeople.people = [
+                    ...prevResult.allPeople.people,
+                    ...fetchMoreResult.allPeople.people,
                   ];
                 });
                 console.log(fetchMoreResult);
@@ -118,31 +121,38 @@ const Character: React.FC = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Created</th>
-              <th>Cost In Credit</th>
-              <th>Cargo Capacity</th>
+              <th>Hair Color</th>
+              <th>Mass</th>
+              <th>Height</th>
+              <th>Home World</th>
             </tr>
           </thead>
           <tbody>
             {currentPageData.map(
               ({
                 id,
-                created,
-                costInCredits,
-                cargoCapacity,
+                hairColor,
                 name,
+                mass,
+                height,
+                homeworld,
               }: {
                 id: string;
                 name: string;
                 created: string;
-                costInCredits: number;
-                cargoCapacity: number;
+                hairColor: string;
+                mass: Float;
+                height: Int;
+                homeworld: Planet;
               }) => (
+                // costInCredits: number;
+                // cargoCapacity: number;
                 <tr key={id}>
                   <td>{name}</td>
-                  <td>{created}</td>
-                  <td>{costInCredits}</td>
-                  <td>{cargoCapacity}</td>
+                  <td>{hairColor}</td>
+                  <td>{mass}</td>
+                  <td>{height}</td>
+                  <td>{homeworld.name}</td>
                 </tr>
               )
             )}
