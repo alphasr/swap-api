@@ -5,13 +5,10 @@ const GET_PERSON = gql`
     allPeople(first: 60, after: $after) {
       people {
         id
-        hairColor
         name
-        mass
+        birthYear
         height
-        homeworld {
-          name
-        }
+        mass
       }
 
       pageInfo {
