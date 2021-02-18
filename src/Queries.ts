@@ -21,8 +21,8 @@ const GET_PERSON = gql`
   }
 `;
 const GET_VEHICLE = gql`
-  query GetVehicle($after: String) {
-    allVehicles(first: 60, after: $after) {
+  query GetVehicle {
+    allVehicles {
       vehicles {
         __typename
         id
