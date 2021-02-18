@@ -8,26 +8,7 @@ import { Button, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 // const client = ...
-const GET_CHARACTERS = gql`
-  query GetCharacters($after: String) {
-    allPeople(first: 60, after: $after) {
-      people {
-        id
-        hairColor
-        name
-        mass
-        height
-        homeworld {
-          name
-        }
-      }
 
-      pageInfo {
-        endCursor
-      }
-    }
-  }
-`;
 const Characters: React.FC = () => {
   let history = useHistory();
 
@@ -35,7 +16,7 @@ const Characters: React.FC = () => {
 
   // const { loading, error, data } = useQuery(Queries.GET_VEHICLE);
 
-  const { loading, data, error, fetchMore } = useQuery(GET_CHARACTERS, {
+  const { loading, data, error, fetchMore } = useQuery(Queries.GET_PERSON, {
     variables: { after: null },
   });
   if (error) return <div>errors ...</div>;

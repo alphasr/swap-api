@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 
 const GET_PERSON = gql`
-  query GetPerson {
-    allPeople {
+  query GetCharacters($after: String) {
+    allPeople(first: 60, after: $after) {
       people {
         id
         hairColor
@@ -13,17 +13,27 @@ const GET_PERSON = gql`
           name
         }
       }
+
+      pageInfo {
+        endCursor
+      }
     }
   }
 `;
 const GET_VEHICLE = gql`
-  query GetVehicle {
-    allVehicles {
+  query GetVehicle($after: String) {
+    allVehicles(first: 60, after: $after) {
       vehicles {
+        __typename
         id
         name
         model
-        vehicleClass
+        crew
+        cargoCapacity
+        maxAtmospheringSpeed
+      }
+      pageInfo {
+        endCursor
       }
     }
   }

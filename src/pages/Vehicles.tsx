@@ -8,24 +8,7 @@ import { Button, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 // const client = ...
-const GET_VEHICLE = gql`
-  query GetVehicle($after: String) {
-    allVehicles(first: 60, after: $after) {
-      vehicles {
-        __typename
-        id
-        name
-        model
-        crew
-        cargoCapacity
-        maxAtmospheringSpeed
-      }
-      pageInfo {
-        endCursor
-      }
-    }
-  }
-`;
+
 const Vehicles: React.FC = () => {
   let history = useHistory();
 
@@ -33,7 +16,7 @@ const Vehicles: React.FC = () => {
 
   // const { loading, error, data } = useQuery(Queries.GET_VEHICLE);
 
-  const { loading, data, error, fetchMore } = useQuery(GET_VEHICLE, {
+  const { loading, data, error, fetchMore } = useQuery(Queries.GET_VEHICLE, {
     variables: { after: null },
   });
   if (error) return <div>errors ...</div>;
