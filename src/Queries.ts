@@ -2,12 +2,16 @@ import { gql, useQuery } from "@apollo/client";
 
 const GET_PERSON = gql`
   query GetPerson {
-    allVehicles {
-      vehicles {
+    allPeople {
+      people {
         id
+        hairColor
         name
-        model
-        vehicleClass
+        mass
+        height
+        homeworld {
+          name
+        }
       }
     }
   }

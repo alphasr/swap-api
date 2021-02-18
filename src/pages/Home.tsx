@@ -18,8 +18,8 @@ const Home: React.FC = () => {
             <Button className="m-3" onClick={() => handleClick("vehicles")}>
               Vehicles
             </Button>
-            <Button className="m-3" onClick={() => handleClick("character")}>
-              Character
+            <Button className="m-3" onClick={() => handleClick("characters")}>
+              Characters
             </Button>
           </Card.Body>
         </Card>

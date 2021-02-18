@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Vehicles from "./pages/Vehicles";
 import "./app.css";
-import Character from "./pages/Character";
+import Characters from "./pages/Characters";
 
 const App: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ const App: React.FC = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/vehicles" exact component={Vehicles} />
-        <Route path="/character" exact component={Character} />
+        <Route path="/characters" exact component={Characters} />
       </Switch>
     </React.Fragment>
   );

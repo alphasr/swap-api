@@ -119,7 +119,7 @@ var mainWindow;
 
 function createWindow() {
   mainWindow = new electron__WEBPACK_IMPORTED_MODULE_0__.BrowserWindow({
-    width: 800,
+    width: 1080,
     height: 600,
     webPreferences: {
       nodeIntegration: true

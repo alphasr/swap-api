@@ -8,8 +8,8 @@ import { Button, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 // const client = ...
-const GET_CHARACTER = gql`
-  query GetCharacter($after: String) {
+const GET_CHARACTERS = gql`
+  query GetCharacters($after: String) {
     allPeople(first: 60, after: $after) {
       people {
         id
@@ -28,14 +28,14 @@ const GET_CHARACTER = gql`
     }
   }
 `;
-const Character: React.FC = () => {
+const Characters: React.FC = () => {
   let history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(0);
 
   // const { loading, error, data } = useQuery(Queries.GET_VEHICLE);
 
-  const { loading, data, error, fetchMore } = useQuery(GET_CHARACTER, {
+  const { loading, data, error, fetchMore } = useQuery(GET_CHARACTERS, {
     variables: { after: null },
   });
   if (error) return <div>errors ...</div>;
@@ -163,4 +163,4 @@ const Character: React.FC = () => {
   );
 };
 
-export default Character;
+export default Characters;
